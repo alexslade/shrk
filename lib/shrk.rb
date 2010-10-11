@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'tumblr'
+require "bundler/setup"
 
 module Shrk
   
