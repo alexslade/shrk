@@ -1,6 +1,11 @@
 = shrk
 
-TODO: Description goes here.
+Shrk is a simple gem to help you synchronise a Tumblr account to your local database. 
+
+I made it so that I could use Tumblr's great interface, and just pull it's info into my own DB. 
+
+
+This is very early Alpha, more docs and features will arrive soon. 
 
 == Note on Patches/Pull Requests
  

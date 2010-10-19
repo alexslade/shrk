@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{shrk}
-  s.version = "0.0.1"
+  s.version = "0.1.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Alex Heaton"]
-  s.date = %q{2010-10-09}
+  s.date = %q{2010-10-20}
   s.description = %q{synchronise a tumblr account to a local database}
   s.email = %q{Alex@Heaton.me}
   s.extra_rdoc_files = [
@@ -17,16 +17,24 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    ".document",
+    ".bundle/config",
+     ".document",
      ".gitignore",
+     "Gemfile",
+     "Gemfile.lock",
      "LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/shrk.rb",
+     "shrk.gemspec",
      "spec/shrk_spec.rb",
      "spec/spec.opts",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/tumblr_404",
+     "spec/tumblr_503",
+     "spec/tumblr_post.xml",
+     "spec/tumblr_posts.xml"
   ]
   s.homepage = %q{http://github.com/alexheaton/shrk}
   s.rdoc_options = ["--charset=UTF-8"]

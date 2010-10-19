@@ -1,0 +1,50 @@
+HTTP/1.1 200 OK
+Date: Wed, 20 Oct 2010 02:32:55 GMT
+Server: Apache/2.2.3 (CentOS)
+P3P: CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"
+Last-Modified: Mon, 18 Oct 2010 16:26:50 GMT
+X-Robots-Tag: noindex
+Cache-Control: max-age=900
+X-Cache-Auto: hit
+Vary: Accept-Encoding
+X-Tumblr-Usec: D=52978
+Content-Length: 3966
+Connection: close
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0"><tumblelog name="leanminded" timezone="US/Eastern" title="LeanMinded"></tumblelog>
+
+<posts start="0" total="3"><post id="1344553263" url="http://leanminded.tumblr.com/post/1344553263" url-with-slug="http://leanminded.tumblr.com/post/1344553263/static-sites-ruby-heroku" type="regular" date-gmt="2010-10-18 16:26:00 GMT" date="Mon, 18 Oct 2010 12:26:00" unix-timestamp="1287419160" format="html" reblog-key="OcCOroN7" slug="static-sites-ruby-heroku"><regular-title>Static sites, Ruby & Heroku</regular-title><regular-body><p><a title="SassRoku" target="_self" href="http://github.com/alexheaton/SassRoku">SassRoku</a> - A Sinatra template.</p>
+<p>Host &#8216;static&#8217; sites, using Haml + Sass, for free on Heroku. </p>
+<!-- more -->
+<p>When making &#8216;static&#8217; sites, I always miss the nice things like Sass, Layouts & Helpers that I get to use on a normal ruby project.</p>
+<p>So, I put together a little Sinatra application that lets me do all that and serve it (free of charge) from Heroku. </p>
+<p>It&#8217;s basic, and probably has some bugs, but here is <a title="SassRoku" target="_self" href="http://github.com/alexheaton/SassRoku">SassRoku</a>. </p></regular-body></post>
+
+<post id="1042531372" url="http://leanminded.tumblr.com/post/1042531372" url-with-slug="http://leanminded.tumblr.com/post/1042531372/textmate-regex-america" type="regular" date-gmt="2010-10-18 14:12:00 GMT" date="Mon, 18 Oct 2010 10:12:00" unix-timestamp="1287411120" format="html" reblog-key="1TB5jlPF" slug="textmate-regex-america"><regular-title>TextMate, Regex & America</regular-title><regular-body><p>Supercharge <a title="Yea" href="#">TextMate&#8217;s</a> Find & Replace using Regular Expressions. </p>
+<!-- more -->
+<p>I was recently working on a website when my american client reminded me that he prefers to write his dates backwards. As you know: </p>
+<blockquote>
+<p>24-08-2010  (Day, Month, Year)</p>
+</blockquote>
+<p>is the sensible way to format a date while: </p>
+<blockquote>
+<p>08-24-2010  (Month, Day, Year)</p>
+</blockquote>
+<p>is the standard in the US.</p>
+<h2>Find & Replace using Regular Expressions</h2>
+<p>Faced with having to edit ~40 pages just to swap two numbers around, the lightbulb appeared above my head and I started reading the <a title="TextMate Manual - Regex" href="http://manual.macromates.com/en/regular_expressions">TextMate Manual</a> on Regular Expressions.</p>
+<p>By using some round brackets in my search, I create <em>Capturing Groups</em> and then reference these in my replacement string using $1, $2, $3 etc. </p>
+<p>Find</p>
+<blockquote>
+<p>date: (\d\d)-(\d\d)-(\d\d\d\d)</p>
+</blockquote>
+<p>Replace with</p>
+<blockquote>
+<p>date: $2-$1-$3</p>
+</blockquote>
+<p>As you can guess, the replacement will swap the 1st and 2nd group around. My 10 minute problem was fixed in seconds. </p>
+<p>These groups and back-references can do some powerful things, I&#8217;ll definitely be reading up on them soon. </p></regular-body></post>
+
+<post id="1344554734" url="http://leanminded.tumblr.com/post/1344554734" url-with-slug="http://leanminded.tumblr.com/post/1344554734/hackfwd-tech-talks-interesting-free" type="link" date-gmt="2010-10-15 16:26:00 GMT" date="Fri, 15 Oct 2010 12:26:00" unix-timestamp="1287159960" format="html" reblog-key="4WrX1c7V" slug="hackfwd-tech-talks-interesting-free"><link-text>HackFwd tech talks: Interesting & Free</link-text><link-url>http://passionmeetsmomentum.com/</link-url></post></posts></tumblr>

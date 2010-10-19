@@ -1,0 +1,21 @@
+HTTP/1.1 200 OK
+Date: Wed, 20 Oct 2010 02:55:51 GMT
+Server: Apache/2.2.3 (CentOS)
+P3P: CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"
+Last-Modified: Mon, 18 Oct 2010 16:26:50 GMT
+X-Robots-Tag: noindex
+Cache-Control: max-age=900
+X-Cache-Auto: hit
+Vary: Accept-Encoding
+X-Tumblr-Usec: D=151190
+Content-Length: 1413
+Connection: close
+Content-Type: text/xml; charset=UTF-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<tumblr version="1.0"><tumblelog name="leanminded" timezone="US/Eastern" title="LeanMinded"></tumblelog><posts start="0" total="3"><post id="1344553263" url="http://leanminded.tumblr.com/post/1344553263" url-with-slug="http://leanminded.tumblr.com/post/1344553263/static-sites-ruby-heroku" type="regular" date-gmt="2010-10-18 16:26:00 GMT" date="Mon, 18 Oct 2010 12:26:00" unix-timestamp="1287419160" format="html" reblog-key="OcCOroN7" slug="static-sites-ruby-heroku" state="published"><regular-title>Static sites, Ruby &amp; Heroku</regular-title><regular-body>&lt;p&gt;&lt;a title="SassRoku" target="_self" href="http://github.com/alexheaton/SassRoku"&gt;SassRoku&lt;/a&gt; - A Sinatra template.&lt;/p&gt;
+&lt;p&gt;Host &amp;#8216;static&amp;#8217; sites, using Haml + Sass, for free on Heroku. &lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;When making &amp;#8216;static&amp;#8217; sites, I always miss the nice things like Sass, Layouts &amp;amp; Helpers that I get to use on a normal ruby project.&lt;/p&gt;
+&lt;p&gt;So, I put together a little Sinatra application that lets me do all that and serve it (free of charge) from Heroku. &lt;/p&gt;
+&lt;p&gt;It&amp;#8217;s basic, and probably has some bugs, but here is &lt;a title="SassRoku" target="_self" href="http://github.com/alexheaton/SassRoku"&gt;SassRoku&lt;/a&gt;. &lt;/p&gt;</regular-body></post></posts></tumblr>

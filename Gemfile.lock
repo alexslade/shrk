@@ -1,7 +1,7 @@
 GIT
   remote: git://github.com/alexheaton/mocha.git
-  revision: 6f2637746e4327de1b39ed808ddcd5a5ced67ac9
-  branch: alexheaton/runs_method
+  revision: d4f07af81993273fdf463a12646bb307e360a6e2
+  branch: master
   specs:
     mocha (0.9.8.20100819090654)
       rake
@@ -10,12 +10,20 @@ GEM
   remote: http://rubygems.org/
   specs:
     ZenTest (4.4.0)
-    activesupport (3.0.0)
+    activesupport (3.0.1)
+    columnize (0.3.1)
     crack (0.1.8)
+    fakeweb (1.3.0)
     httparty (0.6.1)
       crack (= 0.1.8)
+    linecache (0.43)
     rake (0.8.7)
     rspec (1.3.1)
+    ruby-debug (0.10.3)
+      columnize (>= 0.1)
+      ruby-debug-base (~> 0.10.3.0)
+    ruby-debug-base (0.10.3)
+      linecache (>= 0.3)
     tumblr-api (0.1.4)
       activesupport
       httparty
@@ -25,6 +33,9 @@ PLATFORMS
 
 DEPENDENCIES
   ZenTest
+  fakeweb
+  httparty
   mocha!
   rspec (= 1.3.1)
+  ruby-debug
   tumblr-api

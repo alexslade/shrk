@@ -2,72 +2,70 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Shrk" do
   
+  before(:all) do
+    Shrk.blog = "mock"
+    FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_posts.xml")
+  end
+  
   describe '.count' do
-    before do
-      Tumblr::Post.expects(:count).returns(7)
-    end
-    specify { Shrk.count.should == 7 }
+    specify { Shrk.count.should == 3 }
   end
   
   describe '.pull' do
-    before(:each) do
-      
-
-      @post = mock()  
+    
+    before(:all) do
       @post_count = 0
-            
-      @post.stubs(:save).runs{@post_count += 1}
-      @post.stubs(:title=)
-      @post.stubs(:body=)
-      @post.stubs(:url=)
-      @post.stubs(:created_at=)
-      
-      Post = mock('Post_class')
-      Post.stubs(:find_or_initialize_by).returns(@post)
-      Post.stubs(:count).returns{@post_count}
-      Shrk::Post = Post
-          
-      @posts = [{ "regular_title"=>"Test5", 
-                  "regular_body"=>"<p>Test body</p>", 
-                  "id"=>"1052035647", 
-                  "url"=>"http://leanminded.tumblr.com/post/1052035647", 
-                  "url_with_slug"=>"http://leanminded.tumblr.com/post/1052035647/another-test", 
-                  "type"=>"regular", 
-                  "date_gmt"=>"2010-09-02 06:29:37 GMT", 
-                  "date"=>"Thu, 02 Sep 2010 02:29:37", 
-                  "unix_timestamp"=>"1283408977", 
-                  "format"=>"html", 
-                  "reblog_key"=>"qAc9AhyN", 
-                  "slug"=>"another-test"},
-                  { "regular_title"=>"Test5", 
-                  "regular_body"=>"<p>Test body</p>", 
-                  "id"=>"1052035647", 
-                  "url"=>"http://leanminded.tumblr.com/post/1052035647", 
-                  "url_with_slug"=>"http://leanminded.tumblr.com/post/1052035647/another-test", 
-                  "type"=>"regular", 
-                  "date_gmt"=>"2010-09-02 06:29:37 GMT", 
-                  "date"=>"Thu, 02 Sep 2010 02:29:37", 
-                  "unix_timestamp"=>"1283408977", 
-                  "format"=>"html", 
-                  "reblog_key"=>"qAc9AhyN", 
-                  "slug"=>"another-test"}
-                  ]
-      
-      Tumblr::Post.expects(:all).returns(@posts)
-      
+      Shrk.stubs(:create_or_update).runs{@post_count += 1}      
+      Shrk.stubs(:count).returns{@post_count}
     end
     
-    
-    it 'should have no posts before a pull' do
-      Post.count.should == 0 #TODO: Fix this, it should be checking via Post.count, but the mocking doesn't work
+    before(:each) do
+      @post_count = 0
+    end
+
+    it 'should start with no posts' do
+      Shrk.count.should == 0
+    end
+      
+    it 'should end up with posts' do  
+      Shrk.pull  
+      Shrk.count.should == 3 
     end
     
-    it "should have 1 post after a pull" do
-      Shrk.blog = "LeanMinded"
-      Shrk.pull
-      Post.count.should == 2 #TODO: Fix this, it should be checking via Post.count, but the mocking doesn't work
+  end
+  
+  describe ".check" do
+    
+    before(:each) do
+      @delete_calls = 0
+      Shrk.stubs(:delete).runs{@delete_calls += 1}
     end
     
+    it "should check and keep a post" do
+      post = mock()
+      post.expects(:tumblr_id).returns(123)
+      FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=123", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_post.xml")
+      
+      Shrk.check(post)
+      @delete_calls.should == 0
+    end
+    
+    it "should check and call to remove a post" do
+      post = mock()
+      post.expects(:tumblr_id).returns(404)
+      FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=404", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_404")
+
+      Shrk.check(post)
+      @delete_calls.should == 1
+    end
+    
+    it "should raise an error when tumblr is down" do      
+      FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=503", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_503")
+      post = mock()
+      post.expects(:tumblr_id).returns(503)
+      lambda {Shrk.check(post)}.should raise_error(Tumblr::ServiceUnavailable)
+    end
+        
   end
   
 end
