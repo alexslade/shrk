@@ -4,32 +4,52 @@ describe "Shrk" do
   
   before(:all) do
     Shrk.blog = "mock"
-    FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_posts.xml")
   end
-  
+ 
   describe '.count' do
-    specify { Shrk.count.should == 3 }
-  end
-  
-  describe '.pull' do
-    
-    before(:all) do
-      @post_count = 0
-      Shrk.stubs(:create_or_update).runs{@post_count += 1}      
-      Shrk.stubs(:count).returns{@post_count}
-    end
     
     before(:each) do
+      FakeWeb.clean_registry
+    end
+    
+    it "should succeed given a good response" do
+      FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_posts.xml")
+      Shrk.count.should == 3
+    end
+    
+    it "should throw an error given 'unavailable' response" do
+      FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_503")
+      lambda{Shrk.count}.should raise_error(Shrk::ServiceUnavailable)
+    end
+    
+    it "should throw an error given '404' response" do
+      FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_404")
+      lambda{Shrk.count}.should raise_error(Shrk::NotFound)
+    end
+    
+  end
+  
+  
+  
+  
+
+  describe '.pull' do
+    
+    before do
+      FakeWeb.clean_registry
+      FakeWeb.register_uri(:get, %r|http://mock.tumblr.com/api/read|, :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_posts.xml")
+      
       @post_count = 0
+      Shrk.stubs(:create_or_update).runs{@post_count += 1}
     end
 
-    it 'should start with no posts' do
-      Shrk.count.should == 0
+    it "should start with no posts" do
+      @post_count.should == 0
     end
-      
-    it 'should end up with posts' do  
+
+    it "should end up with posts" do  
       Shrk.pull  
-      Shrk.count.should == 3 
+      @post_count.should == 3 
     end
     
   end
@@ -41,7 +61,7 @@ describe "Shrk" do
       Shrk.stubs(:delete).runs{@delete_calls += 1}
     end
     
-    it "should check and keep a post" do
+    it "should keep an existing post" do
       post = mock()
       post.expects(:tumblr_id).returns(123)
       FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=123", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_post.xml")
@@ -50,11 +70,11 @@ describe "Shrk" do
       @delete_calls.should == 0
     end
     
-    it "should check and call to remove a post" do
+    it "should call to remove a missing post" do
       post = mock()
       post.expects(:tumblr_id).returns(404)
       FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=404", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_404")
-
+      
       Shrk.check(post)
       @delete_calls.should == 1
     end
@@ -63,9 +83,9 @@ describe "Shrk" do
       FakeWeb.register_uri(:get, "http://mock.tumblr.com/api/read?id=503", :response => "/Stuff/Work/Dropbox/Code/shrk/spec/tumblr_503")
       post = mock()
       post.expects(:tumblr_id).returns(503)
-      lambda {Shrk.check(post)}.should raise_error(Tumblr::ServiceUnavailable)
+      lambda {Shrk.check(post)}.should raise_error(Shrk::ServiceUnavailable)
     end
         
   end
-  
+
 end
