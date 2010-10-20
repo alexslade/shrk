@@ -96,7 +96,7 @@ module Shrk
     options = {:num => 50}.merge(options)
     responses = []
     amount.times do |n|
-      responses << HTTParty.get("http://#{Shrk::blog}/api/read", {:start => (n.to_i * 50)} )
+      responses << self.read("http://#{Shrk::blog}/api/read", {:start => (n.to_i * 50)})
       #puts options.merge({:start => (count.to_i * 50)}).to_yaml
     end
         
